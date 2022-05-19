@@ -6,6 +6,10 @@ Xiangyu Chen, [Xintao Wang](https://scholar.google.com.hk/citations?user=FQgZpQo
 **The inference results on benchmark datasets are available at
 [Google Drive](https://drive.google.com/drive/folders/1t2RdesqRVN7L6vCptneNRcpwZAo-Ub3L?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1CQtLpty-KyZuqcSznHT_Zw) (access code: 63p5).**
 
-**Codes and models will be released soon.**
+# Dependency
+torch>=1.7
+basicsr==1.3.4.9
+
+**This repo is being updated. The update is expected to be completed before May 23th.**
 
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
