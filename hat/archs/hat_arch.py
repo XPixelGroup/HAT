@@ -153,19 +153,6 @@ class WindowAttention(nn.Module):
         self.relative_position_bias_table = nn.Parameter(
             torch.zeros((2 * window_size[0] - 1) * (2 * window_size[1] - 1), num_heads))  # 2*Wh-1 * 2*Ww-1, nH
 
-        # get pair-wise relative position index for each token inside the window
-        coords_h = torch.arange(self.window_size[0])
-        coords_w = torch.arange(self.window_size[1])
-        coords = torch.stack(torch.meshgrid([coords_h, coords_w]))  # 2, Wh, Ww
-        coords_flatten = torch.flatten(coords, 1)  # 2, Wh*Ww
-        relative_coords = coords_flatten[:, :, None] - coords_flatten[:, None, :]  # 2, Wh*Ww, Wh*Ww
-        relative_coords = relative_coords.permute(1, 2, 0).contiguous()  # Wh*Ww, Wh*Ww, 2
-        relative_coords[:, :, 0] += self.window_size[0] - 1  # shift to start from 0
-        relative_coords[:, :, 1] += self.window_size[1] - 1
-        relative_coords[:, :, 0] *= 2 * self.window_size[1] - 1
-        relative_position_index = relative_coords.sum(-1)  # Wh*Ww, Wh*Ww
-        self.register_buffer('relative_position_index', relative_position_index)
-
         self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
         self.attn_drop = nn.Dropout(attn_drop)
         self.proj = nn.Linear(dim, dim)
@@ -175,7 +162,7 @@ class WindowAttention(nn.Module):
         trunc_normal_(self.relative_position_bias_table, std=.02)
         self.softmax = nn.Softmax(dim=-1)
 
-    def forward(self, x, mask=None):
+    def forward(self, x, rpi, mask=None):
         """
         Args:
             x: input features with shape of (num_windows*b, n, c)
@@ -188,7 +175,7 @@ class WindowAttention(nn.Module):
         q = q * self.scale
         attn = (q @ k.transpose(-2, -1))
 
-        relative_position_bias = self.relative_position_bias_table[self.relative_position_index.view(-1)].view(
+        relative_position_bias = self.relative_position_bias_table[rpi.view(-1)].view(
             self.window_size[0] * self.window_size[1], self.window_size[0] * self.window_size[1], -1)  # Wh*Ww,Wh*Ww,nH
         relative_position_bias = relative_position_bias.permute(2, 0, 1).contiguous()  # nH, Wh*Ww, Wh*Ww
         attn = attn + relative_position_bias.unsqueeze(0)
@@ -276,7 +263,7 @@ class HAB(nn.Module):
         mlp_hidden_dim = int(dim * mlp_ratio)
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=drop)
 
-    def forward(self, x, attn_mask, x_size):
+    def forward(self, x, x_size, rpi_sa, attn_mask):
         h, w = x_size
         b, _, c = x.shape
         # assert seq_len == h * w, "input feature has wrong size"
@@ -302,7 +289,7 @@ class HAB(nn.Module):
         x_windows = x_windows.view(-1, self.window_size * self.window_size, c)  # nw*b, window_size*window_size, c
 
         # W-MSA/SW-MSA (to be compatible for testing on images whose shapes are the multiple of window size
-        attn_windows = self.attn(x_windows, mask=attn_mask)
+        attn_windows = self.attn(x_windows, rpi=rpi_sa, mask=attn_mask)
 
         # merge windows
         attn_windows = attn_windows.view(-1, self.window_size, self.window_size, c)
@@ -362,32 +349,8 @@ class PatchMerging(nn.Module):
         return x
 
 
-def calculate_rpi(window_size, overlap_ratio):
-    window_size_ori = window_size
-    window_size_down = window_size + int(overlap_ratio * window_size)
-
-    coords_h = torch.arange(window_size_ori)
-    coords_w = torch.arange(window_size_ori)
-    coords_ori = torch.stack(torch.meshgrid([coords_h, coords_w]))  # 2, ws, ws
-    coords_ori_flatten = torch.flatten(coords_ori, 1)  # 2, ws*ws
-
-    coords_h = torch.arange(window_size_down)
-    coords_w = torch.arange(window_size_down)
-    coords_down = torch.stack(torch.meshgrid([coords_h, coords_w]))  # 2, wsd, wsd
-    coords_down_flatten = torch.flatten(coords_down, 1)  # 2, wds*wsd
-
-    relative_coords = coords_down_flatten[:, None, :] - coords_ori_flatten[:, :, None]   # 2, ws*ws, wsd*wsd
-
-    relative_coords = relative_coords.permute(1, 2, 0).contiguous()  # ws*ws, wsd*wsd, 2
-    relative_coords[:, :, 0] += window_size_ori - window_size_down + 1  # shift to start from 0
-    relative_coords[:, :, 1] += window_size_ori - window_size_down + 1
-
-    relative_coords[:, :, 0] *= window_size_ori + window_size_down - 1
-    relative_position_index = relative_coords.sum(-1)
-    return relative_position_index
-
-
-class OverlapWindowAttention(nn.Module):
+class OCAB(nn.Module):
+    # overlapping cross-attention block
 
     def __init__(self, dim,
                 input_resolution,
@@ -417,10 +380,6 @@ class OverlapWindowAttention(nn.Module):
         self.relative_position_bias_table = nn.Parameter(
             torch.zeros((window_size + self.overlap_win_size - 1) * (window_size + self.overlap_win_size - 1), num_heads))  # 2*Wh-1 * 2*Ww-1, nH
 
-        # get pair-wise relative position index for each token inside the window
-        relative_position_index = calculate_rpi(window_size, overlap_ratio)
-        self.register_buffer('relative_position_index', relative_position_index)
-
         trunc_normal_(self.relative_position_bias_table, std=.02)
         self.softmax = nn.Softmax(dim=-1)
 
@@ -430,7 +389,7 @@ class OverlapWindowAttention(nn.Module):
         mlp_hidden_dim = int(dim * mlp_ratio)
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=nn.GELU)
 
-    def forward(self, x, x_size):
+    def forward(self, x, x_size, rpi):
         h, w = x_size
         b, _, c = x.shape
 
@@ -460,9 +419,9 @@ class OverlapWindowAttention(nn.Module):
         q = q * self.scale
         attn = (q @ k.transpose(-2, -1))
 
-        relative_position_bias = self.relative_position_bias_table[self.relative_position_index.view(-1)].view(
-            self.window_size * self.window_size, self.overlap_win_size * self.overlap_win_size, -1)  # ws*ws, wsd*wsd, nH
-        relative_position_bias = relative_position_bias.permute(2, 0, 1).contiguous()  # nH, ws*ws, wsd*wsd
+        relative_position_bias = self.relative_position_bias_table[rpi.view(-1)].view(
+            self.window_size * self.window_size, self.overlap_win_size * self.overlap_win_size, -1)  # ws*ws, wse*wse, nH
+        relative_position_bias = relative_position_bias.permute(2, 0, 1).contiguous()  # nH, ws*ws, wse*wse
         attn = attn + relative_position_bias.unsqueeze(0)
 
         attn = self.softmax(attn)
@@ -479,8 +438,8 @@ class OverlapWindowAttention(nn.Module):
         return x
 
 
-class BasicLayer(nn.Module):
-    """ A basic Swin Transformer layer for one stage.
+class AttenBlocks(nn.Module):
+    """ A series of attention blocks for one RHAG.
 
     Args:
         dim (int): Number of input channels.
@@ -545,7 +504,8 @@ class BasicLayer(nn.Module):
                 norm_layer=norm_layer) for i in range(depth)
         ])
 
-        self.overlap_attn = OverlapWindowAttention(
+        # OCAB
+        self.overlap_attn = OCAB(
                             dim=dim,
                             input_resolution=input_resolution,
                             window_size=window_size,
@@ -563,14 +523,11 @@ class BasicLayer(nn.Module):
         else:
             self.downsample = None
 
-    def forward(self, x, attn_mask, x_size):
+    def forward(self, x, x_size, params):
         for blk in self.blocks:
-            if self.use_checkpoint:
-                x = checkpoint.checkpoint(blk, x)
-            else:
-                x = blk(x, attn_mask, x_size)
+            x = blk(x, x_size, params['rpi_sa'], params['attn_mask'])
 
-        x = self.overlap_attn(x, x_size)
+        x = self.overlap_attn(x, x_size, params['rpi_oca'])
 
         if self.downsample is not None:
             x = self.downsample(x)
@@ -627,7 +584,7 @@ class RHAG(nn.Module):
         self.dim = dim
         self.input_resolution = input_resolution
 
-        self.residual_group = BasicLayer(
+        self.residual_group = AttenBlocks(
             dim=dim,
             input_resolution=input_resolution,
             depth=depth,
@@ -658,8 +615,8 @@ class RHAG(nn.Module):
         self.patch_unembed = PatchUnEmbed(
             img_size=img_size, patch_size=patch_size, in_chans=0, embed_dim=dim, norm_layer=None)
 
-    def forward(self, x, attn_mask, x_size):
-        return self.patch_embed(self.conv(self.patch_unembed(self.residual_group(x, attn_mask, x_size), x_size))) + x
+    def forward(self, x, x_size, params):
+        return self.patch_embed(self.conv(self.patch_unembed(self.residual_group(x, x_size, params), x_size))) + x
 
 
 class PatchEmbed(nn.Module):
@@ -750,7 +707,7 @@ class Upsample(nn.Sequential):
 
 
 @ARCH_REGISTRY.register()
-class HAT_Test(nn.Module):
+class HAT(nn.Module):
     r""" Hybrid Attention Transformer
         A PyTorch implementation of : `Activating More Pixels in Image Super-Resolution Transformer`.
         Some codes are based on SwinIR.
@@ -809,6 +766,7 @@ class HAT_Test(nn.Module):
 
         self.window_size = window_size
         self.shift_size = window_size // 2
+        self.overlap_ratio = overlap_ratio
 
         num_in_ch = in_chans
         num_out_ch = in_chans
@@ -821,6 +779,10 @@ class HAT_Test(nn.Module):
             self.mean = torch.zeros(1, 1, 1, 1)
         self.upscale = upscale
         self.upsampler = upsampler
+
+        # relative position index
+        self.relative_position_index_SA = self.calculate_rpi_sa()
+        self.relative_position_index_OCA = self.calculate_rpi_oca()
 
         # ------------------------- 1, shallow feature extraction ------------------------- #
         self.conv_first = nn.Conv2d(num_in_ch, embed_dim, 3, 1, 1)
@@ -915,6 +877,45 @@ class HAT_Test(nn.Module):
             nn.init.constant_(m.bias, 0)
             nn.init.constant_(m.weight, 1.0)
 
+    def calculate_rpi_sa(self):
+        # calculate relative position index for SA
+        coords_h = torch.arange(self.window_size)
+        coords_w = torch.arange(self.window_size)
+        coords = torch.stack(torch.meshgrid([coords_h, coords_w]))  # 2, Wh, Ww
+        coords_flatten = torch.flatten(coords, 1)  # 2, Wh*Ww
+        relative_coords = coords_flatten[:, :, None] - coords_flatten[:, None, :]  # 2, Wh*Ww, Wh*Ww
+        relative_coords = relative_coords.permute(1, 2, 0).contiguous()  # Wh*Ww, Wh*Ww, 2
+        relative_coords[:, :, 0] += self.window_size - 1  # shift to start from 0
+        relative_coords[:, :, 1] += self.window_size - 1
+        relative_coords[:, :, 0] *= 2 * self.window_size - 1
+        relative_position_index = relative_coords.sum(-1)  # Wh*Ww, Wh*Ww
+        return relative_position_index
+
+    def calculate_rpi_oca(self):
+        # calculate relative position index for OCA
+        window_size_ori = self.window_size
+        window_size_ext = self.window_size + int(self.overlap_ratio * self.window_size)
+
+        coords_h = torch.arange(window_size_ori)
+        coords_w = torch.arange(window_size_ori)
+        coords_ori = torch.stack(torch.meshgrid([coords_h, coords_w]))  # 2, ws, ws
+        coords_ori_flatten = torch.flatten(coords_ori, 1)  # 2, ws*ws
+
+        coords_h = torch.arange(window_size_ext)
+        coords_w = torch.arange(window_size_ext)
+        coords_ext = torch.stack(torch.meshgrid([coords_h, coords_w]))  # 2, wse, wse
+        coords_ext_flatten = torch.flatten(coords_ext, 1)  # 2, wse*wse
+
+        relative_coords = coords_ext_flatten[:, None, :] - coords_ori_flatten[:, :, None]   # 2, ws*ws, wse*wse
+
+        relative_coords = relative_coords.permute(1, 2, 0).contiguous()  # ws*ws, wse*wse, 2
+        relative_coords[:, :, 0] += window_size_ori - window_size_ext + 1  # shift to start from 0
+        relative_coords[:, :, 1] += window_size_ori - window_size_ext + 1
+
+        relative_coords[:, :, 0] *= window_size_ori + window_size_ext - 1
+        relative_position_index = relative_coords.sum(-1)
+        return relative_position_index
+
     def calculate_mask(self, x_size):
         # calculate attention mask for SW-MSA
         h, w = x_size
@@ -947,7 +948,10 @@ class HAT_Test(nn.Module):
     def forward_features(self, x):
         x_size = (x.shape[2], x.shape[3])
 
+        # Calculate attention mask and relative position index in advance to speed up inference. 
+        # The original code is very time-cosuming for large window size.
         attn_mask = self.calculate_mask(x_size).to(x.device)
+        params = {'attn_mask': attn_mask, 'rpi_sa': self.relative_position_index_SA, 'rpi_oca': self.relative_position_index_OCA}
 
         x = self.patch_embed(x)
         if self.ape:
@@ -955,7 +959,7 @@ class HAT_Test(nn.Module):
         x = self.pos_drop(x)
 
         for layer in self.layers:
-            x = layer(x, attn_mask, x_size)
+            x = layer(x, x_size, params)
 
         x = self.norm(x)  # b seq_len c
         x = self.patch_unembed(x, x_size)
