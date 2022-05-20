@@ -10,6 +10,7 @@ Xiangyu Chen, [Xintao Wang](https://scholar.google.com.hk/citations?user=FQgZpQo
 torch>=1.7  
 basicsr==1.3.4.9
 
-**This repo is being updated. The update is expected to be completed before May 23th.**
+**Codes and models will be released soon.**  
+**This repo is being updated. It is expected to be completed before May 23th.**
 
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
