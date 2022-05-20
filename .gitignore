@@ -5,6 +5,7 @@ tb_logger/*
 wandb/*
 tmp/*
 modify_model.py
+hat/version.py
 
 *.DS_Store
 
