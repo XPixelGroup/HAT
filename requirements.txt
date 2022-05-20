@@ -1,0 +1,6 @@
+numpy
+opencv-python
+requests
+torch>=1.7
+torchvision
+basicsr==1.3.4.9
