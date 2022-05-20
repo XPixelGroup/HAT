@@ -21,13 +21,13 @@ datasets:
   #   io_backend:
   #     type: disk
 
-  test_3:
-    name: Urban100
-    type: PairedImageDataset
-    dataroot_gt: ./datasets/urban100/GTmod4
-    dataroot_lq: ./datasets/urban100/LRbicx4
-    io_backend:
-      type: disk
+  # test_3:
+  #   name: Urban100
+  #   type: PairedImageDataset
+  #   dataroot_gt: ./datasets/urban100/GTmod4
+  #   dataroot_lq: ./datasets/urban100/LRbicx4
+  #   io_backend:
+  #     type: disk
 
   # test_4:
   #    name: BSDS100

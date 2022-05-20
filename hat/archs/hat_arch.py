@@ -762,7 +762,7 @@ class HAT(nn.Module):
                  upsampler='',
                  resi_connection='1conv',
                  **kwargs):
-        super(HAT_Test, self).__init__()
+        super(HAT, self).__init__()
 
         self.window_size = window_size
         self.shift_size = window_size // 2
@@ -781,8 +781,10 @@ class HAT(nn.Module):
         self.upsampler = upsampler
 
         # relative position index
-        self.relative_position_index_SA = self.calculate_rpi_sa()
-        self.relative_position_index_OCA = self.calculate_rpi_oca()
+        relative_position_index_SA = self.calculate_rpi_sa()
+        relative_position_index_OCA = self.calculate_rpi_oca()
+        self.register_buffer('relative_position_index_SA', relative_position_index_SA)
+        self.register_buffer('relative_position_index_OCA', relative_position_index_OCA)
 
         # ------------------------- 1, shallow feature extraction ------------------------- #
         self.conv_first = nn.Conv2d(num_in_ch, embed_dim, 3, 1, 1)
