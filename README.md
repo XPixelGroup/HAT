@@ -24,11 +24,14 @@ python setup.py develop
 ```
 
 ## How To Test
-The pretrained models are available at
+- Refer to `./options/test` for the configuration file of the model to be tested, and prepare the testing data and pretrained model.  
+- The pretrained models are available at
 [Google Drive](https://drive.google.com/drive/folders/1HpmReFfoUqUbnAOQ7rvOeNU3uf_m69w0?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1u2r4Lc2_EEeQqra2-w85Xg) (access code: qyrl).  
+- Then run the follwing codes (taking `HAT_SRx4_ImageNet-pretrain.pth` as an example):
 ```
-python hat/test.py -opt options/test/HAT_SRx4.yml
+python hat/test.py -opt options/test/HAT_SRx4_ImageNet-pretrain.yml
 ```
+The testing results will be saved in the `./results` folder.
 
 ## Results
 The inference results on benchmark datasets are available at
