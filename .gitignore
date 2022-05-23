@@ -1,6 +1,6 @@
-# datasets/*
-# experiments/*
-# results/*
+datasets/*
+experiments/*
+results/*
 tb_logger/*
 wandb/*
 tmp/*
