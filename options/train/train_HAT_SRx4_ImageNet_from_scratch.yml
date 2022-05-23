@@ -11,8 +11,7 @@ datasets:
     name: ImageNet
     type: ImageNetPairedDataset
     dataroot_gt: datasets/imagenet/train
-    dataroot_lq: datasets/imagenet/train # Keep this path same as the above gt path.
-    meta_info_file: datasets/imagenet/train_map.txt
+    meta_info_file: hct/data/meta_info/meta_info_ImageNet_GT.txt
     io_backend:
       type: disk
 
