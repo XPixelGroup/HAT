@@ -12,7 +12,7 @@ datasets:
     type: PairedImageDataset
     dataroot_gt: datasets/DF2K/DF2K_HR_sub
     dataroot_lq: datasets/DF2K/DF2K_bicx4_sub
-    meta_info_file: hct/data/meta_info/meta_info_DF2Ksub_GT.txt
+    meta_info_file: hat/data/meta_info/meta_info_DF2Ksub_GT.txt
     io_backend:
       type: disk
 
