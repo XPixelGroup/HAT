@@ -10,8 +10,8 @@ datasets:
   train:
     name: ImageNet
     type: ImageNetPairedDataset
-    dataroot_gt: datasets/imagenet/train
-    meta_info_file: hct/data/meta_info/meta_info_ImageNet_GT.txt
+    dataroot_gt: datasets/ImageNet/GT
+    meta_info_file: hat/data/meta_info/meta_info_ImageNet_GT.txt
     io_backend:
       type: disk
 
