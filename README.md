@@ -33,9 +33,17 @@ python hat/test.py -opt options/test/HAT_SRx4_ImageNet-pretrain.yml
 ```
 The testing results will be saved in the `./results` folder.
 
+## How To Train
+- Refer to `./options/train` for the configuration file of the model to train.
+- Preparation of training data can refer to [this page](https://github.com/XPixelGroup/BasicSR/blob/master/docs/DatasetPreparation.md). ImageNet dataset can be downloaded at the [official website](https://image-net.org/challenges/LSVRC/2012/2012-downloads.php).
+- The training command is like
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -m torch.distributed.launch --nproc_per_node=8 --master_port=4321 hat/train.py -opt options/train/train_HAT_SRx2_from_scratch.yml --launcher pytorch
+```
+- Note that the default batch size per gpu is 4, which will cost about 20G memory for each GPU.  
+
+The training logs and weights will be saved in the `./experiments` folder.
+
 ## Results
 The inference results on benchmark datasets are available at
 [Google Drive](https://drive.google.com/drive/folders/1t2RdesqRVN7L6vCptneNRcpwZAo-Ub3L?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1CQtLpty-KyZuqcSznHT_Zw) (access code: 63p5).
-
-
-### The training instructions are to be updated.
