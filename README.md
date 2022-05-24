@@ -38,4 +38,4 @@ The inference results on benchmark datasets are available at
 [Google Drive](https://drive.google.com/drive/folders/1t2RdesqRVN7L6vCptneNRcpwZAo-Ub3L?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1CQtLpty-KyZuqcSznHT_Zw) (access code: 63p5).
 
 
-### The training instruction is to be update.
+### The training instruction are to be updated.
