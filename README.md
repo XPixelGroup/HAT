@@ -50,4 +50,4 @@ The inference results on benchmark datasets are available at
 
 
 ## Contact
-If you have any question, please email chxy95@gmail.com or join in the [Wechat group of BasicSR](https://github.com/XPixelGroup/BasicSR#e-mail-contact) to discuss with the authors.
+If you have any question, please email chxy95@gmail.com or join in the [Wechat group of BasicSR](https://github.com/XPixelGroup/BasicSR#-contact) to discuss with the authors.
