@@ -16,7 +16,7 @@ Xiangyu Chen, [Xintao Wang](https://scholar.google.com.hk/citations?user=FQgZpQo
 
 ## Environment
 - [PyTorch >= 1.7](https://pytorch.org/)
-- [BasicSR >= 1.3.4.9](https://github.com/XPixelGroup/BasicSR/blob/master/INSTALL.md) 
+- [BasicSR == 1.3.4.9](https://github.com/XPixelGroup/BasicSR/blob/master/INSTALL.md) 
 ### Installation
 ```
 pip install -r requirements.txt
