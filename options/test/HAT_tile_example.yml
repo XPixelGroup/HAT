@@ -5,7 +5,7 @@ num_gpu: 1  # set num_gpu: 0 for cpu mode
 manual_seed: 0
 
 tile: # use the tile mode for limited GPU memory when testing.
-  tile_size: 256 # the higher, the less utilized GPU memory. must be an integer multiple of the window size.
+  tile_size: 256 # the lower, the less utilized GPU memory. must be an integer multiple of the window size.
   tile_pad: 32 # overlapping between adjacency patches.must be an integer multiple of the window size.
 
 datasets:
