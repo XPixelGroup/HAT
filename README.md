@@ -3,6 +3,12 @@
 ### Activating More Pixels in Image Super-Resolution Transformer
 Xiangyu Chen, [Xintao Wang](https://scholar.google.com.hk/citations?user=FQgZpQoAAAAJ&hl=en), [Jiantao Zhou](https://scholar.google.com/citations?hl=zh-CN&user=mcROAxAAAAAJ) and [Chao Dong](https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=zh-CN)
 
+## To Be Updated
+- Add the tile mode for Replicate demo.
+- Add GAN-based HAT models for Real-World Super-Resolution.
+- Add HAT models for Multiple Image Restoration tasks.
+
+## Overview
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
 
 #### BibTeX
