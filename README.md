@@ -22,7 +22,7 @@
     }
 
 ## Environment
-- [PyTorch >= 1.7](https://pytorch.org/)
+- [PyTorch >= 1.7](https://pytorch.org/) **(Recommend not using torch 1.8)**
 - [BasicSR == 1.3.4.9](https://github.com/XPixelGroup/BasicSR/blob/master/INSTALL.md) 
 ### Installation
 ```
