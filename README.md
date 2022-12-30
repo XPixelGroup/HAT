@@ -5,9 +5,9 @@
 
 ## Updates
 - ✅ Upload a GAN-based HAT models for Real-World Super-Resolution (Real_HAT_GAN_SRx4.pth).
-- **(To do)** Upate the training configs for the Real-World GAN-based HAT model.
 - **(To do)** Add the tile mode for Replicate demo.
 - **(To do)** Update the Replicate demo for Real-World Super-Resolution.
+- **(To do)** Upate the training configs for the Real-World GAN-based HAT model.
 - **(To do)** Add HAT models for Multiple Image Restoration tasks.
 
 ## Overview
