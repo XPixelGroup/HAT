@@ -1,0 +1,43 @@
+name: HAT_GAN_Real_SRx4
+model_type: HATModel
+scale: 4
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 0
+
+tile: # use the tile mode for limited GPU memory when testing.
+  tile_size: 512 # the higher, the more utilized GPU memory and the less performance change against the full image. must be an integer multiple of the window size.
+  tile_pad: 32 # overlapping between adjacency patches.must be an integer multiple of the window size.
+
+datasets:
+  test_1:  # the 1st test dataset
+    name: custom
+    type: SingleImageDataset
+    dataroot_lq: input_dir
+    io_backend:
+      type: disk
+
+# network structures
+network_g:
+  type: HAT
+  upscale: 4
+  in_chans: 3
+  img_size: 64
+  window_size: 16
+  compress_ratio: 3
+  squeeze_factor: 30
+  conv_scale: 0.01
+  overlap_ratio: 0.5
+  img_range: 1.
+  depths: [6, 6, 6, 6, 6, 6]
+  embed_dim: 180
+  num_heads: [6, 6, 6, 6, 6, 6]
+  mlp_ratio: 2
+  upsampler: 'pixelshuffle'
+  resi_connection: '1conv'
+
+
+# path
+path:
+  pretrain_network_g: ./experiments/pretrained_models/Real_HAT_GAN_SRx4.pth
+  strict_load_g: true
+  param_key_g: 'params_ema'
