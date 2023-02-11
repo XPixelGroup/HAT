@@ -3,6 +3,16 @@
 ### Activating More Pixels in Image Super-Resolution Transformer
 [Xiangyu Chen](https://chxy95.github.io/), [Xintao Wang](https://xinntao.github.io/), [Jiantao Zhou](https://scholar.google.com/citations?hl=zh-CN&user=mcROAxAAAAAJ) and [Chao Dong](https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=zh-CN)
 
+#### BibTeX
+
+    @article{chen2022activating,
+      title={Activating More Pixels in Image Super-Resolution Transformer},
+      author={Chen, Xiangyu and Wang, Xintao and Zhou, Jiantao and Dong, Chao},
+      journal={arXiv preprint arXiv:2205.04437},
+      year={2022}
+    }
+**Google Scholar has unknown bugs for indexing this paper, while it can still be cited by the above BibTeX.**
+
 ## Updates
 - ✅ Upload a GAN-based HAT models for Real-World Super-Resolution (Real_HAT_GAN_SRx4.pth).
 - **(To do)** Add the tile mode for Replicate demo.
@@ -12,16 +22,6 @@
 
 ## Overview
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
-
-#### BibTeX
-
-    @article{chen2022activating,
-      title={Activating More Pixels in Image Super-Resolution Transformer},
-      author={Chen, Xiangyu and Wang, Xintao and Zhou, Jiantao and Dong, Chao},
-      journal={arXiv preprint arXiv:2205.04437},
-      year={2022}
-    }
-**Google Scholar has unknown bugs for indexing this paper, while it can still be cited by the above Bibtex.**
 
 ## Environment
 - [PyTorch >= 1.7](https://pytorch.org/) **(Recommend **NOT** using torch 1.8)**
