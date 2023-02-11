@@ -21,6 +21,7 @@
       journal={arXiv preprint arXiv:2205.04437},
       year={2022}
     }
+**Google Scholar has unknown bugs for indexing this paper, while it can still be cited by the above Bibtex.**
 
 ## Environment
 - [PyTorch >= 1.7](https://pytorch.org/) **(Recommend **NOT** using torch 1.8)**
