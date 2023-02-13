@@ -11,7 +11,7 @@
       journal={arXiv preprint arXiv:2205.04437},
       year={2022}
     }
-**Google Scholar has unknown bugs for indexing this paper, while it can still be cited by the above BibTeX.**
+**Google Scholar has unknown bugs for indexing this paper recently, while it can still be cited by the above BibTeX.**
 
 ## Updates
 - ✅ Upload a GAN-based HAT models for Real-World Super-Resolution (Real_HAT_GAN_SRx4.pth).
