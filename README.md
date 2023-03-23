@@ -46,7 +46,9 @@ python setup.py develop
 python hat/test.py -opt options/test/HAT_SRx4_ImageNet-pretrain.yml
 ```
 The testing results will be saved in the `./results` folder.  
-  
+
+- Refer to `./options/test/HAT_SRx4_ImageNet-LR.yml` for **inference** without the ground truth image.
+
 **Note that the tile mode is also provided for limited GPU memory when testing. You can modify the specific settings of the tile mode in your custom testing option by referring to `./options/test/HAT_tile_example.yml`.**
 
 ## How To Train
