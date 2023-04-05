@@ -19,6 +19,10 @@
 **Google Scholar has unknown bugs for indexing this paper recently, while it can still be cited by the above BibTeX.**
 
 ## Updates
+- ✅ 2022-05-09: Release the first version of the paper at Arxiv.
+- ✅ 2022-05-20: Release the codes, models and results of HAT.
+- ✅ 2022-08-29: Add a Replicate demo for SRx4.
+- ✅ 2022-09-25: Add the tile mode for inference with limited GPU memory.
 - ✅ 2022-11-24: Upload a GAN-based HAT model for Real-World SR (Real_HAT_GAN_SRx4.pth). 
 - ✅ 2023-03-19: Update paper to CVPR version. Small HAT models are added.
 - ✅ 2023-04-05: Upload the HAT-S models and results. 
@@ -40,6 +44,10 @@ python setup.py develop
 ```
 
 ## How To Test
+
+No need to use code, [chaiNNer] (https://github.com/chaiNNer-org/chaiNNer) is also a nice tool to run our models.
+
+Otherwise, 
 - Refer to `./options/test` for the configuration file of the model to be tested, and prepare the testing data and pretrained model.  
 - The pretrained models are available at
 [Google Drive](https://drive.google.com/drive/folders/1HpmReFfoUqUbnAOQ7rvOeNU3uf_m69w0?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1u2r4Lc2_EEeQqra2-w85Xg) (access code: qyrl).  
