@@ -1,0 +1,87 @@
+name: HAT-S_SRx3
+model_type: HATModel
+scale: 3
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 0
+
+datasets:
+  test_1:  # the 1st test dataset
+    name: Set5
+    type: PairedImageDataset
+    dataroot_gt: ./datasets/Set5/GTmod3
+    dataroot_lq: ./datasets/Set5/LRbicx3
+    io_backend:
+      type: disk
+
+  test_2:  # the 2nd test dataset
+    name: Set14
+    type: PairedImageDataset
+    dataroot_gt: ./datasets/Set14/GTmod3
+    dataroot_lq: ./datasets/Set14/LRbicx3
+    io_backend:
+      type: disk
+
+  test_3:
+    name: Urban100
+    type: PairedImageDataset
+    dataroot_gt: ./datasets/urban100/GTmod3
+    dataroot_lq: ./datasets/urban100/LRbicx3
+    io_backend:
+      type: disk
+
+  test_4:
+     name: BSDS100
+     type: PairedImageDataset
+     dataroot_gt: ./datasets/BSDS100/GTmod3
+     dataroot_lq: ./datasets/BSDS100/LRbicx3
+     io_backend:
+       type: disk
+
+  test_5:
+      name: Manga109
+      type: PairedImageDataset
+      dataroot_gt: ./datasets/manga109/GTmod3
+      dataroot_lq: ./datasets/manga109/LRbicx3
+      io_backend:
+        type: disk
+
+# network structures
+network_g:
+  type: HAT
+  upscale: 3
+  in_chans: 3
+  img_size: 64
+  window_size: 16
+  compress_ratio: 24
+  squeeze_factor: 24
+  conv_scale: 0.01
+  overlap_ratio: 0.5
+  img_range: 1.
+  depths: [6, 6, 6, 6, 6, 6]
+  embed_dim: 144
+  num_heads: [6, 6, 6, 6, 6, 6]
+  mlp_ratio: 2
+  upsampler: 'pixelshuffle'
+  resi_connection: '1conv'
+
+
+# path
+path:
+  pretrain_network_g: ./experiments/pretrained_models/HAT-S_SRx3.pth
+  strict_load_g: true
+  param_key_g: 'params_ema'
+
+# validation settings
+val:
+  save_img: true
+  suffix: ~  # add suffix to saved images, if None, use exp name
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 3
+      test_y_channel: true
+    ssim:
+      type: calculate_ssim
+      crop_border: 3
+      test_y_channel: true

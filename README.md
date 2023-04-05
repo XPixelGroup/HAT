@@ -25,7 +25,7 @@
 - ✅ 2022-09-25: Add the tile mode for inference with limited GPU memory.
 - ✅ 2022-11-24: Upload a GAN-based HAT model for Real-World SR (Real_HAT_GAN_SRx4.pth). 
 - ✅ 2023-03-19: Update paper to CVPR version. Small HAT models are added.
-- ✅ 2023-04-05: Upload the HAT-S models and results. 
+- ✅ 2023-04-05: Upload the HAT-S codes, models and results. 
 - **(To do)** Add the tile mode for Replicate demo. 
 - **(To do)** Update the Replicate demo for Real-World SR. 
 - **(To do)** Upload the training configs for the Real-World GAN-based HAT model. 
