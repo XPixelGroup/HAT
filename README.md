@@ -19,11 +19,13 @@
 **Google Scholar has unknown bugs for indexing this paper recently, while it can still be cited by the above BibTeX.**
 
 ## Updates
-- ✅ Upload a GAN-based HAT models for Real-World Super-Resolution (Real_HAT_GAN_SRx4.pth).
-- **(To do)** Add the tile mode for Replicate demo.
-- **(To do)** Update the Replicate demo for Real-World Super-Resolution.
-- **(To do)** Upate the training configs for the Real-World GAN-based HAT model.
-- **(To do)** Add HAT models for Multiple Image Restoration tasks.
+- ✅ 2022-11-24: Upload a GAN-based HAT model for Real-World SR (Real_HAT_GAN_SRx4.pth). 
+- ✅ 2023-03-19: Update paper to CVPR version. Small HAT models are added.
+- ✅ 2023-04-05: Upload the HAT-S models and results. 
+- **(To do)** Add the tile mode for Replicate demo. 
+- **(To do)** Update the Replicate demo for Real-World SR. 
+- **(To do)** Upload the training configs for the Real-World GAN-based HAT model. 
+- **(To do)** Add HAT models for Multiple Image Restoration tasks. 
 
 ## Overview
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
