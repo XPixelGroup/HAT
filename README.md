@@ -45,7 +45,7 @@ python setup.py develop
 
 ## How To Test
 
-No need to use code, [chaiNNer] (https://github.com/chaiNNer-org/chaiNNer) is also a nice tool to run our models.
+Without implementing the codes, [chaiNNer](https://github.com/chaiNNer-org/chaiNNer) is a nice tool to run our models.
 
 Otherwise, 
 - Refer to `./options/test` for the configuration file of the model to be tested, and prepare the testing data and pretrained model.  
