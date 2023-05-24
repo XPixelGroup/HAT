@@ -10,11 +10,13 @@
 
 #### BibTeX
 
-    @article{chen2022activating,
-      title={Activating More Pixels in Image Super-Resolution Transformer},
-      author={Chen, Xiangyu and Wang, Xintao and Zhou, Jiantao and Dong, Chao},
-      journal={arXiv preprint arXiv:2205.04437},
-      year={2022}
+    @InProceedings{chen2023hat,
+        author    = {Chen, Xiangyu and Wang, Xintao and Zhou, Jiantao and Qiao, Yu and Dong, Chao},
+        title     = {Activating More Pixels in Image Super-Resolution Transformer},
+        booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+        month     = {June},
+        year      = {2023},
+        pages     = {22367-22377}
     }
 **Google Scholar has unknown bugs for indexing this paper recently, while it can still be cited by the above BibTeX.**
 
