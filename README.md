@@ -25,7 +25,7 @@
 - ✅ 2022-05-20: Release the codes, models and results of HAT.
 - ✅ 2022-08-29: Add a Replicate demo for SRx4.
 - ✅ 2022-09-25: Add the tile mode for inference with limited GPU memory.
-- ✅ 2022-11-24: Upload a GAN-based HAT model for Real-World SR (Real_HAT_GAN_SRx4.pth). 
+- ✅ 2022-11-24: Upload a GAN-based HAT model for **Real-World SR** (Real_HAT_GAN_SRx4.pth). 
 - ✅ 2023-03-19: Update paper to CVPR version. Small HAT models are added.
 - ✅ 2023-04-05: Upload the HAT-S codes, models and results. 
 - **(To do)** Add the tile mode for Replicate demo. 
