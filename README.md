@@ -28,9 +28,10 @@
 - ✅ 2022-11-24: Upload a GAN-based HAT model for **Real-World SR** (Real_HAT_GAN_SRx4.pth). 
 - ✅ 2023-03-19: Update paper to CVPR version. Small HAT models are added.
 - ✅ 2023-04-05: Upload the HAT-S codes, models and results. 
+- ✅ 2023-08-01: Upload another GAN model for sharper results (Real_HAT_GAN_SRx4_sharper.pth). 
+- ✅ 2023-08-01: Upload the training configs for the **Real-World GAN-based model**.
 - **(To do)** Add the tile mode for Replicate demo. 
 - **(To do)** Update the Replicate demo for Real-World SR. 
-- **(To do)** Upload the training configs for the Real-World GAN-based HAT model. 
 - **(To do)** Add HAT models for Multiple Image Restoration tasks. 
 
 ## Overview
