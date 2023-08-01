@@ -44,7 +44,12 @@
 | HAT-S |   9.6    | 54.9 | 32.92 | 29.15 | 27.97 | 27.87 | 32.35 |
 | HAT |   20.8    | 102.4 | 33.04 | 29.23 | 28.00 | 27.97 | 32.48 |
 
+## Real-World SR Results
+**Results produced by** Real_HAT_GAN_SRx4_sharper.pth
+
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Visual_Results.png" width="800"/>
+
+**Comparison with the state-of-the-art Real-SR methods.**
 
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Comparison.png" width="800"/>
 
