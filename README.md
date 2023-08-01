@@ -35,7 +35,11 @@
 - **(To do)** Add HAT models for Multiple Image Restoration tasks. 
 
 ## Overview
-<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
+<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_Comparison.png" width="600"/>
+
+<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Visual_Results.png" width="600"/>
+
+<img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Comparison.png" width="600"/>
 
 **Benchmark results on SRx4 without x2 pretraining. Mulit-Adds are calculated for a 64x64 input.**
 | Model | Params(M) | Multi-Adds(G) | Set5 | Set14 | BSD100 | Urban100 | Manga109 |
