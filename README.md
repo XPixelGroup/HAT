@@ -45,16 +45,16 @@
 | HAT |   20.8    | 102.4 | 33.04 | 29.23 | 28.00 | 27.97 | 32.48 |
 
 ## Real-World SR Results
-- **Note that:**
-The default settings in the training configs (almost the same as Real-ESRGAN) are for training **Real_HAT_GAN_SRx4_sharper**.
-**Real_HAT_GAN_SRx4** is trained using similar settings without USM the groud truth.
-**Real_HAT_GAN_SRx4_sharper** would have better perceptual quality and **Real_HAT_GAN_SRx4** would have better fidelity.
+**Note that:**
+- The default settings in the training configs (almost the same as Real-ESRGAN) are for training **Real_HAT_GAN_SRx4_sharper**.
+- **Real_HAT_GAN_SRx4** is trained using similar settings without USM the groud truth.
+- **Real_HAT_GAN_SRx4_sharper** would have better perceptual quality and **Real_HAT_GAN_SRx4** would have better fidelity.
 
-- **Results produced by** Real_HAT_GAN_SRx4_sharper.pth.
+**Results produced by** Real_HAT_GAN_SRx4_sharper.pth.
 
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Visual_Results.png" width="800"/>
 
-- **Comparison with the state-of-the-art Real-SR methods.**
+**Comparison with the state-of-the-art Real-SR methods.**
 
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Comparison.png" width="800"/>
 
