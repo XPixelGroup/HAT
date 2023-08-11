@@ -46,7 +46,7 @@
 
 ## Real-World SR Results
 **Note that:**
-- The default settings in the training configs are for training **Real_HAT_GAN_SRx4_sharper** (almost the same as Real-ESRGAN).
+- The default settings in the training configs (almost the same as Real-ESRGAN) are for training **Real_HAT_GAN_SRx4_sharper**.
 - **Real_HAT_GAN_SRx4** is trained using similar settings without USM the groud truth.
 - **Real_HAT_GAN_SRx4** would have better fidelity.
 - **Real_HAT_GAN_SRx4_sharper** would have better perceptual quality.
