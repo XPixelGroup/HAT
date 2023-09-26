@@ -184,7 +184,7 @@ class RealHATMSEModel(SRModel):
     def nondist_validation(self, dataloader, current_iter, tb_logger, save_img):
         # do not use the synthetic process during validation
         self.is_train = False
-        super(RealESRNetModel, self).nondist_validation(dataloader, current_iter, tb_logger, save_img)
+        super(RealHATMSEModel, self).nondist_validation(dataloader, current_iter, tb_logger, save_img)
         self.is_train = True
     
     def test(self):
