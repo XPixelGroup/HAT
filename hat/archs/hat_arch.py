@@ -951,7 +951,7 @@ class HAT(nn.Module):
         x_size = (x.shape[2], x.shape[3])
 
         # Calculate attention mask and relative position index in advance to speed up inference. 
-        # The original code is very time-cosuming for large window size.
+        # The original code is very time-consuming for large window size.
         attn_mask = self.calculate_mask(x_size).to(x.device)
         params = {'attn_mask': attn_mask, 'rpi_sa': self.relative_position_index_SA, 'rpi_oca': self.relative_position_index_OCA}
 
