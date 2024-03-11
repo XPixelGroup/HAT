@@ -62,8 +62,6 @@
         year      = {2023},
         pages     = {22367-22377}
     }
-**Google Scholar has unknown bugs for indexing this paper recently, while it can still be cited by the above BibTeX.**
-
 
     @article{chen2023hat,
       title={HAT: Hybrid Attention Transformer for Image Restoration},
