@@ -1,9 +1,9 @@
 # flake8: noqa
 import os.path as osp
 
-import hat.archs
-import hat.data
-import hat.models
+import archs
+import data
+import models
 from basicsr.test import test_pipeline
 
 if __name__ == '__main__':
