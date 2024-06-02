@@ -29,7 +29,7 @@
 ## Overview
 <img src="https://raw.githubusercontent.com/chxy95/HAT/master/figures/Performance_comparison.png" width="600"/>
 
-**Benchmark results on SRx4 without x2 pretraining. Mulit-Adds are calculated for a 64x64 input.**
+**Benchmark results on SRx4 without ImageNet pretraining. Mulit-Adds are calculated for a 64x64 input.**
 | Model | Params(M) | Multi-Adds(G) | Set5 | Set14 | BSD100 | Urban100 | Manga109 |
 |-------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
 | [SwinIR](https://github.com/JingyunLiang/SwinIR) |   11.9    | 53.6 | 32.92 | 29.09 | 27.92 | 27.45 | 32.03 |
